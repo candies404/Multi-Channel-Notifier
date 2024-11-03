@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 发送通知
-        uses: candies404/notify@latest
+        uses: candies404/Multi-Channel-Notifier@latest
         with:
           title: '构建通知'
           content: '项目有新的提交！'
@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 发送发布通知
-        uses: candies404/notify@latest
+        uses: candies404/Multi-Channel-Notifier@latest
         with:
           title: '新版本发布通知'
           content: |
@@ -103,47 +103,52 @@ jobs:
 ### 1. 钉钉机器人
 
 #### 必需配置
-
+```
 DD_BOT_SECRET=your_secret_here
 DD_BOT_TOKEN=your_token_here
+```
 
 #### 可选配置
 
+```
 DD_MSG_TYPE=text  # 消息类型：text/markdown/actionCard
-
+```
 ### 2. Telegram机器人
 
 #### 必需配置
 
+```
 TG_BOT_TOKEN=your_bot_token
 TG_USER_ID=your_user_id
+```
 
 #### 可选配置
-
+```
 TG_API_HOST=api_host  # 自定义API
 TG_PROXY_HOST=proxy_host  # 代理服务器
 TG_PROXY_PORT=proxy_port  # 代理端口
 TG_PROXY_AUTH=proxy_auth  # 代理认证
-
+```
 ### 3. SMTP邮件
 
 #### 必需配置
-
+```
 SMTP_SERVER=smtp_server
 SMTP_SSL=true/false
 SMTP_EMAIL=your_email
 SMTP_PASSWORD=your_password
 SMTP_NAME=sender_name
-
+```
 ### 4. WPUSH
 
 #### 必需配置
 
-WPUSH_KEY=your_api_key
+```WPUSH_KEY=your_api_key```
 
-#### 可选配置
+#### 可选配置 
+推送通道
 
-WPUSH_CHANNEL=wechat  # 推送通道
+```WPUSH_CHANNEL=wechat```  
 
 ## 五、高级功能
 
@@ -151,28 +156,32 @@ WPUSH_CHANNEL=wechat  # 推送通道
 
 启用/禁用一言功能（在消息末尾添加随机句子）
 
-HITOKOTO=true/false
+```HITOKOTO=true/false```
 
 ### 2. 跳过特定标题的推送
 
 使用换行分隔多个标题
-
+```
 SKIP_PUSH_TITLE=标题1
 标题2
 标题3
+```
 
 ### 3. 自定义通知
 
 #### 必需配置
-
+```
 WEBHOOK_URL=your_webhook_url
 WEBHOOK_METHOD=POST/GET
-
+```
 #### 可选配置
-
+```
 WEBHOOK_CONTENT_TYPE=content_type
+
 WEBHOOK_BODY=request_body
+
 WEBHOOK_HEADERS=request_headers
+```
 
 ## 六、注意事项
 
