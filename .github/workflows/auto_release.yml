@@ -1,0 +1,98 @@
+name: 版本递增与发布
+
+on:
+  push:
+    branches:
+      - main  # 仅在推送到 main 分支时触发
+  workflow_dispatch:  # 添加手动触发选项
+
+# 添加权限配置
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  packages: write
+  deployments: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤 1: 检出代码
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整的 Git 历史
+
+      # 步骤 2: 获取最新标签并递增版本号
+      - name: 获取最新标签并递增版本号
+        id: version
+        run: |
+          # 获取最新标签，如果没有则默认使用 v0.1.0
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.1.0")
+          echo "最新标签: $latest_tag"
+          
+          # 解析标签并递增版本号
+          if [[ $latest_tag =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+            # 提取版本号的各个部分
+            major="${BASH_REMATCH[1]}"
+            minor="${BASH_REMATCH[2]}"
+            patch="${BASH_REMATCH[3]}"
+          
+            # 根据提交信息决定如何递增版本号
+            if git log -1 --pretty=%B | grep -q "BREAKING"; then
+              new_tag="v$((major + 1)).0.0"  # 主版本号递增
+            elif git log -1 --pretty=%B | grep -q "feat:"; then
+              new_tag="v$major.$((minor + 1)).0"  # 次版本号递增
+            else
+              new_tag="v$major.$minor.$((patch + 1))"  # 修订号递增
+            fi
+          else
+            # 如果没有有效的标签格式，使用 v0.1.0
+            new_tag="v0.1.0"
+          fi
+          
+          # 确保新标签不存在
+          while git rev-parse $new_tag >/dev/null 2>&1; do
+            # 如果标签已存在，继续递增
+            if [[ $new_tag =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+              major="${BASH_REMATCH[1]}"
+              minor="${BASH_REMATCH[2]}"
+              patch="${BASH_REMATCH[3]}"
+              new_tag="v$major.$minor.$((patch + 1))"  # 递增修订号
+            else
+              echo "错误: 无效的标签格式"
+              exit 1
+            fi
+          done
+          
+          echo "新标签: $new_tag"
+          echo "new_tag=$new_tag" >> $GITHUB_OUTPUT  # 设置输出变量
+
+      # 步骤 3: 创建并推送新标签
+      - name: 创建并推送新标签
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git tag ${{ steps.version.outputs.new_tag }}
+          git push origin ${{ steps.version.outputs.new_tag }}
+
+      # 步骤 4: 创建 GitHub Release
+      - name: 创建 GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.new_tag }}
+          name: ${{ steps.version.outputs.new_tag }}
+          body: |
+            ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 步骤 5: 更新 latest 标签
+      - name: 更新 latest 标签
+        run: |
+          git tag -fa latest -m "更新 latest 标签到 ${{ steps.version.outputs.new_tag }}"
+          git push origin latest --force

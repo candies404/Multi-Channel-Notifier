@@ -1,0 +1,372 @@
+name: 'Multi-Channel Notifier'
+description: '支持多种通知渠道的消息推送'
+author: 'candies404'
+branding:
+  icon: 'bell'
+  color: 'blue'
+
+inputs:
+  title:
+    description: '通知标题'
+    required: true
+  content:
+    description: '通知内容'
+    required: true
+  hitokoto:
+    description: '是否启用一言(随机句子)'
+    required: false
+    default: 'true'
+
+  # Bark配置
+  bark_push:
+    description: 'Bark推送密钥'
+    required: false
+  bark_archive:
+    description: 'Bark推送是否存档'
+    required: false
+  bark_group:
+    description: 'Bark推送分组'
+    required: false
+  bark_sound:
+    description: 'Bark推送声音'
+    required: false
+  bark_icon:
+    description: 'Bark推送图标'
+    required: false
+  bark_level:
+    description: 'Bark推送时效性'
+    required: false
+  bark_url:
+    description: 'Bark推送跳转URL'
+    required: false
+
+  # 控制台输出
+  console:
+    description: '是否输出到控制台'
+    required: false
+    default: 'false'
+
+  # 钉钉机器人配置
+  dd_bot_secret:
+    description: '钉钉机器人密钥'
+    required: false
+  dd_bot_token:
+    description: '钉钉机器人令牌'
+    required: false
+  dd_msg_type:
+    description: '钉钉消息类型'
+    required: false
+    default: 'text'
+
+  # 飞书机器人配置
+  fskey:
+    description: '飞书机器人密钥'
+    required: false
+
+  # go-cqhttp配置
+  gobot_url:
+    description: 'go-cqhttp URL'
+    required: false
+  gobot_qq:
+    description: 'go-cqhttp QQ号/群号'
+    required: false
+  gobot_token:
+    description: 'go-cqhttp访问令牌'
+    required: false
+
+  # Gotify配置
+  gotify_url:
+    description: 'Gotify URL'
+    required: false
+  gotify_token:
+    description: 'Gotify令牌'
+    required: false
+  gotify_priority:
+    description: 'Gotify优先级'
+    required: false
+    default: '0'
+
+  # iGot配置
+  igot_push_key:
+    description: 'iGot推送密钥'
+    required: false
+
+  # Server酱配置
+  push_key:
+    description: 'Server酱推送密钥'
+    required: false
+
+  # PushDeer配置
+  deer_key:
+    description: 'PushDeer密钥'
+    required: false
+  deer_url:
+    description: 'PushDeer URL'
+    required: false
+
+  # Synology Chat配置
+  chat_url:
+    description: 'Synology Chat URL'
+    required: false
+  chat_token:
+    description: 'Synology Chat令牌'
+    required: false
+
+  # Push+配置
+  push_plus_token:
+    description: 'Push+令牌'
+    required: false
+  push_plus_user:
+    description: 'Push+用户组编码'
+    required: false
+
+  # 微加机器人配置
+  we_plus_bot_token:
+    description: '微加机器人令牌'
+    required: false
+  we_plus_bot_receiver:
+    description: '微加机器人接收者'
+    required: false
+  we_plus_bot_version:
+    description: '微加机器人版本'
+    required: false
+    default: 'pro'
+
+  # QMsg配置
+  qmsg_key:
+    description: 'QMsg密钥'
+    required: false
+  qmsg_type:
+    description: 'QMsg类型'
+    required: false
+
+  # 企业微信配置
+  qywx_origin:
+    description: '企业微信代理地址'
+    required: false
+  qywx_am:
+    description: '企业微信应用'
+    required: false
+  qywx_key:
+    description: '企业微信机器人密钥'
+    required: false
+
+  # Telegram配置
+  tg_bot_token:
+    description: 'Telegram机器人令牌'
+    required: false
+  tg_user_id:
+    description: 'Telegram用户ID'
+    required: false
+  tg_api_host:
+    description: 'Telegram API代理'
+    required: false
+  tg_proxy_auth:
+    description: 'Telegram代理认证'
+    required: false
+  tg_proxy_host:
+    description: 'Telegram代理地址'
+    required: false
+  tg_proxy_port:
+    description: 'Telegram代理端口'
+    required: false
+
+  # 智能微秘书配置
+  aibotk_key:
+    description: '智能微秘书密钥'
+    required: false
+  aibotk_type:
+    description: '智能微秘书类型'
+    required: false
+  aibotk_name:
+    description: '智能微秘书名称'
+    required: false
+
+  # SMTP邮件配置
+  smtp_server:
+    description: 'SMTP服务器'
+    required: false
+  smtp_ssl:
+    description: 'SMTP SSL开关'
+    required: false
+    default: 'false'
+  smtp_email:
+    description: 'SMTP邮箱'
+    required: false
+  smtp_password:
+    description: 'SMTP密码'
+    required: false
+  smtp_name:
+    description: 'SMTP发件人名称'
+    required: false
+
+  # PushMe配置
+  pushme_key:
+    description: 'PushMe密钥'
+    required: false
+  pushme_url:
+    description: 'PushMe URL'
+    required: false
+
+  # Chronocat配置
+  chronocat_qq:
+    description: 'Chronocat QQ号'
+    required: false
+  chronocat_token:
+    description: 'Chronocat令牌'
+    required: false
+  chronocat_url:
+    description: 'Chronocat URL'
+    required: false
+
+  # Webhook配置
+  webhook_url:
+    description: 'Webhook URL'
+    required: false
+  webhook_body:
+    description: 'Webhook请求体'
+    required: false
+  webhook_headers:
+    description: 'Webhook请求头'
+    required: false
+  webhook_method:
+    description: 'Webhook请求方法'
+    required: false
+  webhook_content_type:
+    description: 'Webhook Content-Type'
+    required: false
+
+  # WPUSH配置
+  wpush_key:
+    description: 'WPUSH密钥'
+    required: false
+  wpush_channel:
+    description: 'WPUSH推送通道'
+    required: false
+    default: 'wechat'
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: 设置Python环境
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: 安装依赖
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: 发送通知
+      shell: bash
+      env:
+        TITLE: ${{ inputs.title }}
+        CONTENT: ${{ inputs.content }}
+        HITOKOTO: ${{ inputs.hitokoto }}
+
+        # Bark环境变量
+        BARK_PUSH: ${{ inputs.bark_push }}
+        BARK_ARCHIVE: ${{ inputs.bark_archive }}
+        BARK_GROUP: ${{ inputs.bark_group }}
+        BARK_SOUND: ${{ inputs.bark_sound }}
+        BARK_ICON: ${{ inputs.bark_icon }}
+        BARK_LEVEL: ${{ inputs.bark_level }}
+        BARK_URL: ${{ inputs.bark_url }}
+
+        # 控制台输出
+        CONSOLE: ${{ inputs.console }}
+
+        # 钉钉环境变量
+        DD_BOT_SECRET: ${{ inputs.dd_bot_secret }}
+        DD_BOT_TOKEN: ${{ inputs.dd_bot_token }}
+        DD_MSG_TYPE: ${{ inputs.dd_msg_type }}
+
+        # 飞书环境变量
+        FSKEY: ${{ inputs.fskey }}
+
+        # go-cqhttp环境变量
+        GOBOT_URL: ${{ inputs.gobot_url }}
+        GOBOT_QQ: ${{ inputs.gobot_qq }}
+        GOBOT_TOKEN: ${{ inputs.gobot_token }}
+
+        # Gotify环境变量
+        GOTIFY_URL: ${{ inputs.gotify_url }}
+        GOTIFY_TOKEN: ${{ inputs.gotify_token }}
+        GOTIFY_PRIORITY: ${{ inputs.gotify_priority }}
+
+        # iGot环境变量
+        IGOT_PUSH_KEY: ${{ inputs.igot_push_key }}
+
+        # Server酱环境变量
+        PUSH_KEY: ${{ inputs.push_key }}
+
+        # PushDeer环境变量
+        DEER_KEY: ${{ inputs.deer_key }}
+        DEER_URL: ${{ inputs.deer_url }}
+
+        # Synology Chat环境变量
+        CHAT_URL: ${{ inputs.chat_url }}
+        CHAT_TOKEN: ${{ inputs.chat_token }}
+
+        # Push+环境变量
+        PUSH_PLUS_TOKEN: ${{ inputs.push_plus_token }}
+        PUSH_PLUS_USER: ${{ inputs.push_plus_user }}
+
+        # 微加机器人环境变量
+        WE_PLUS_BOT_TOKEN: ${{ inputs.we_plus_bot_token }}
+        WE_PLUS_BOT_RECEIVER: ${{ inputs.we_plus_bot_receiver }}
+        WE_PLUS_BOT_VERSION: ${{ inputs.we_plus_bot_version }}
+
+        # QMsg环境变量
+        QMSG_KEY: ${{ inputs.qmsg_key }}
+        QMSG_TYPE: ${{ inputs.qmsg_type }}
+
+        # 企业微信环境变量
+        QYWX_ORIGIN: ${{ inputs.qywx_origin }}
+        QYWX_AM: ${{ inputs.qywx_am }}
+        QYWX_KEY: ${{ inputs.qywx_key }}
+
+        # Telegram环境变量
+        TG_BOT_TOKEN: ${{ inputs.tg_bot_token }}
+        TG_USER_ID: ${{ inputs.tg_user_id }}
+        TG_API_HOST: ${{ inputs.tg_api_host }}
+        TG_PROXY_AUTH: ${{ inputs.tg_proxy_auth }}
+        TG_PROXY_HOST: ${{ inputs.tg_proxy_host }}
+        TG_PROXY_PORT: ${{ inputs.tg_proxy_port }}
+
+        # 智能微秘书环境变量
+        AIBOTK_KEY: ${{ inputs.aibotk_key }}
+        AIBOTK_TYPE: ${{ inputs.aibotk_type }}
+        AIBOTK_NAME: ${{ inputs.aibotk_name }}
+
+        # SMTP环境变量
+        SMTP_SERVER: ${{ inputs.smtp_server }}
+        SMTP_SSL: ${{ inputs.smtp_ssl }}
+        SMTP_EMAIL: ${{ inputs.smtp_email }}
+        SMTP_PASSWORD: ${{ inputs.smtp_password }}
+        SMTP_NAME: ${{ inputs.smtp_name }}
+
+        # PushMe环境变量
+        PUSHME_KEY: ${{ inputs.pushme_key }}
+        PUSHME_URL: ${{ inputs.pushme_url }}
+
+        # Chronocat环境变量
+        CHRONOCAT_QQ: ${{ inputs.chronocat_qq }}
+        CHRONOCAT_TOKEN: ${{ inputs.chronocat_token }}
+        CHRONOCAT_URL: ${{ inputs.chronocat_url }}
+
+        # Webhook环境变量
+        WEBHOOK_URL: ${{ inputs.webhook_url }}
+        WEBHOOK_BODY: ${{ inputs.webhook_body }}
+        WEBHOOK_HEADERS: ${{ inputs.webhook_headers }}
+        WEBHOOK_METHOD: ${{ inputs.webhook_method }}
+        WEBHOOK_CONTENT_TYPE: ${{ inputs.webhook_content_type }}
+
+        # WPUSH环境变量
+        WPUSH_KEY: ${{ inputs.wpush_key }}
+        WPUSH_CHANNEL: ${{ inputs.wpush_channel }}
+      run: |
+        python ${{ github.action_path }}/notify.py
